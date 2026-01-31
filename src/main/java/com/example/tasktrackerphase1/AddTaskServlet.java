@@ -18,11 +18,13 @@ public class AddTaskServlet  extends HttpServlet {
 
         try {
             Class.forName("org.postgresql.Driver");
-            Connection con = DriverManager.getConnection("jdbc::postgresql://localhost:5432/tasktracker","postgres","password");
-            PreparedStatement ps = con.prepareStatement("INSERT INTO tasktrackerphase1 (title,description) VALUES (?,?)");
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tasktracker","postgres","password");
+            System.out.println("Connected to database successfully");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO tasks (title,description) VALUES (?,?)");
             ps.setString(1, title);
             ps.setString(2, description);
             ps.executeUpdate();
+            System.out.println("Task added successfully");
             con.close();
         } catch (Exception e) {
            e.printStackTrace();
