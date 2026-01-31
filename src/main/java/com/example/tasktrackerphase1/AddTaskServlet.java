@@ -1,6 +1,7 @@
 package com.example.tasktrackerphase1;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,7 +10,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class AddTaskServlet  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -19,12 +19,12 @@ public class AddTaskServlet  extends HttpServlet {
         try {
             Class.forName("org.postgresql.Driver");
             Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tasktracker","postgres","password");
-            System.out.println("Connected to database successfully");
+//            System.out.println("Connected to database successfully");
             PreparedStatement ps = con.prepareStatement("INSERT INTO tasks (title,description) VALUES (?,?)");
             ps.setString(1, title);
             ps.setString(2, description);
             ps.executeUpdate();
-            System.out.println("Task added successfully");
+//            System.out.println("Task added successfully");
             con.close();
         } catch (Exception e) {
            e.printStackTrace();
